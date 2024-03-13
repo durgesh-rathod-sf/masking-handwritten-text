@@ -23,7 +23,6 @@ def detect_handwritten_and_printed_text(image_path):
     handwriting_text_rects = []
     printed_text_rects = []
     for item in response["Blocks"]:
-
         if "Text" in item:
             text_type = item.get("TextType", "")
             if text_type == "HANDWRITING" or (
@@ -135,9 +134,10 @@ def create_mask_bounding_rects(image_path, to_be_masked_rects):
 if __name__ == "__main__":
     image_path = "./inputs/oudwt.jpg"
 
-    handwriting_bounding_rects, printed_text_rects = (
-        detect_handwritten_and_printed_text(image_path)
-    )
+    (
+        handwriting_bounding_rects,
+        printed_text_rects,
+    ) = detect_handwritten_and_printed_text(image_path)
     to_be_masked_rects = find_intersections_and_cropout_printed_text_rects(
         handwriting_bounding_rects, printed_text_rects
     )
